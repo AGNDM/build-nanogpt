@@ -1,0 +1,35 @@
+edu_fineweb10B/
+# --- 模型和权重 (重点) ---
+# 忽略所有子目录下的 .pt, .pth, .ckpt 文件
+**/*.pt
+**/*.pth
+**/*.ckpt
+**/*.bin
+**/*.h5
+
+# --- 缓存和环境 ---
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# 忽略虚拟环境 (比如 venv 或 .venv)
+venv/
+.venv/
+env/
+
+# --- 数据集 ---
+# 忽略数据文件夹（假设你的数据放在 data/ 目录下）
+data/
+datasets/
+*.zip
+*.tar.gz
+*.csv
+*.jsonl
+
+# --- 系统和工具 ---
+# 忽略 Linux 下的隐藏文件
+.DS_Store
+.ipynb_checkpoints/
+.vscode/
+.idea/
+
