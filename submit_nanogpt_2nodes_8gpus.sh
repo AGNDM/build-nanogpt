@@ -9,36 +9,23 @@
 #SBATCH --output=log_3_epoch/%x-%j.out
 #SBATCH --error=log_3_epoch/%x-%j.err
 
-set -euo pipefail
+cd /iopsstor/scratch/cscs/tong/share/xianrong_liu/build-nanogpt
 
-# === user-tunable paths ===
-WORKDIR="${WORKDIR:-/iopsstor/scratch/cscs/tong/share/xianrong_liu/build-nanogpt}"
-VENV_ACTIVATE="${VENV_ACTIVATE:-/iopsstor/scratch/cscs/tong/share/xianrong_liu/.venv/bin/activate}"
+export MASTER_ADDR=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)
+export MASTER_PORT=${MASTER_PORT:-29500}
+export OMP_NUM_THREADS=${OMP_NUM_THREADS:-4}
+export MKL_NUM_THREADS=${MKL_NUM_THREADS:-4}
+export PYTORCH_CUDA_ALLOC_CONF=${PYTORCH_CUDA_ALLOC_CONF:-expandable_segments:True}
 
-cd "$WORKDIR"
-
-# Rendezvous settings for multi-node torchrun
-export MASTER_ADDR
-MASTER_ADDR="$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)"
-export MASTER_PORT="${MASTER_PORT:-29500}"
-
-# CPU threading knobs (can be overridden when sbatch, e.g. OMP_NUM_THREADS=4 sbatch ...)
-export OMP_NUM_THREADS="${OMP_NUM_THREADS:-4}"
-export MKL_NUM_THREADS="${MKL_NUM_THREADS:-4}"
-
-# Optional allocator tweak to reduce fragmentation-related OOMs
-export PYTORCH_CUDA_ALLOC_CONF="${PYTORCH_CUDA_ALLOC_CONF:-expandable_segments:True}"
-
-srun --uenv=pytorch/v2.8.0:v1 --view=default bash -lc '
-    source "$VENV_ACTIVATE"
-    source "$WORKDIR/cache_env_setup.sh"
-
+srun --uenv=pytorch/v2.8.0:v1 --view=default bash -c " \
+    source /iopsstor/scratch/cscs/tong/share/xianrong_liu/.venv/bin/activate && \
+    source /iopsstor/scratch/cscs/tong/share/xianrong_liu/build-nanogpt/cache_env_setup.sh && \
     python -m torch.distributed.run \
-        --nnodes=$SLURM_NNODES \
+        --nnodes=2 \
         --nproc_per_node=4 \
-        --node_rank=$SLURM_NODEID \
-        --rdzv_id=$SLURM_JOB_ID \
+        --node_rank=\$SLURM_NODEID \
+        --rdzv_id=\$SLURM_JOB_ID \
         --rdzv_backend=c10d \
-        --rdzv_endpoint=${MASTER_ADDR}:${MASTER_PORT} \
-        train_gpt2_multi_epoch.py
-'
+        --rdzv_endpoint=\${MASTER_ADDR}:\${MASTER_PORT} \
+        train_gpt2_multi_epoch.py \
+"
