@@ -1,0 +1,137 @@
+slurmstepd: error: *** STEP 1809955.0 ON nid006965 CANCELLED AT 2026-04-07T08:18:54 DUE TO TIME LIMIT ***
+slurmstepd: error: *** JOB 1809955 ON nid006965 CANCELLED AT 2026-04-07T08:18:54 DUE TO TIME LIMIT ***
+W0407 08:18:54.022000 79282 /user-environment/linux-neoverse_v2/py-torch-2.8.0-zkvjgu55ipgoc3nzbxg3i2xdcpyo3unk/lib/python3.12/site-packages/torch/distributed/elastic/agent/server/api.py:723] Received 15 death signal, shutting down workers
+--- Logging error ---
+W0407 08:18:54.023000 246706 /user-environment/linux-neoverse_v2/py-torch-2.8.0-zkvjgu55ipgoc3nzbxg3i2xdcpyo3unk/lib/python3.12/site-packages/torch/distributed/elastic/agent/server/api.py:723] Received 15 death signal, shutting down workers
+--- Logging error ---
+Traceback (most recent call last):
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/elastic/agent/server/api.py", line 715, in run
+    result = self._invoke_run(role)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/elastic/agent/server/api.py", line 879, in _invoke_run
+    time.sleep(monitor_interval)
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/api.py", line 84, in _terminate_process_handler
+    raise SignalException(f"Process {os.getpid()} got signal: {sigval}", sigval=sigval)
+torch.distributed.elastic.multiprocessing.api.SignalException: Process 79282 got signal: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/user-environment/linux-neoverse_v2/python-3.12.12-5cm7jitxgnqn6suwm7rewia3gomktsja/lib/python3.12/logging/__init__.py", line 1160, in emit
+    msg = self.format(record)
+          ^^^^^^^^^^^^^^^^^^^
+  File "/user-environment/linux-neoverse_v2/python-3.12.12-5cm7jitxgnqn6suwm7rewia3gomktsja/lib/python3.12/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ^^^^^^^^^^^^^^^^^^
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/_logging/_internal.py", line 887, in format
+    filepath = make_module_path_relative(record.pathname)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/_logging/_internal.py", line 811, in make_module_path_relative
+    abs_path = pathlib.Path(abs_path).resolve()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/user-environment/linux-neoverse_v2/python-3.12.12-5cm7jitxgnqn6suwm7rewia3gomktsja/lib/python3.12/pathlib.py", line 1240, in resolve
+    s = self._flavour.realpath(self, strict=strict)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen posixpath>", line 427, in realpath
+  File "<frozen posixpath>", line 494, in _joinrealpath
+  File "<frozen posixpath>", line 471, in _joinrealpath
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/api.py", line 84, in _terminate_process_handler
+    raise SignalException(f"Process {os.getpid()} got signal: {sigval}", sigval=sigval)
+torch.distributed.elastic.multiprocessing.api.SignalException: Process 79282 got signal: 15
+Call stack:
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/run.py", line 905, in <module>
+    main()
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/run.py", line 901, in main
+    run(args)
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/run.py", line 892, in run
+    elastic_launch(
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 143, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 268, in launch_agent
+    result = agent.run()
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/elastic/metrics/api.py", line 138, in wrapper
+    result = f(*args, **kwargs)
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/elastic/agent/server/api.py", line 724, in run
+    self._shutdown(e.sigval)
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/elastic/agent/server/local_elastic_agent.py", line 368, in _shutdown
+    self._pcontext.close(death_sig)
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/api.py", line 577, in close
+    self._close(death_sig=death_sig, timeout=timeout)
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/api.py", line 900, in _close
+    logger.warning(
+Message: 'Sending process %s closing signal %s'
+Arguments: (79300, 'SIGTERM')
+Traceback (most recent call last):
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/elastic/agent/server/api.py", line 715, in run
+    result = self._invoke_run(role)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/elastic/agent/server/api.py", line 879, in _invoke_run
+    time.sleep(monitor_interval)
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/api.py", line 84, in _terminate_process_handler
+    raise SignalException(f"Process {os.getpid()} got signal: {sigval}", sigval=sigval)
+torch.distributed.elastic.multiprocessing.api.SignalException: Process 246706 got signal: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+W0407 08:18:54.025000 79282 /user-environment/linux-neoverse_v2/py-torch-2.8.0-zkvjgu55ipgoc3nzbxg3i2xdcpyo3unk/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/api.py:900] Sending process 79301 closing signal SIGTERM
+  File "/user-environment/linux-neoverse_v2/python-3.12.12-5cm7jitxgnqn6suwm7rewia3gomktsja/lib/python3.12/logging/__init__.py", line 1160, in emit
+    msg = self.format(record)
+          ^^^^^^^^^^^^^^^^^^^
+  File "/user-environment/linux-neoverse_v2/python-3.12.12-5cm7jitxgnqn6suwm7rewia3gomktsja/lib/python3.12/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ^^^^^^^^^^^^^^^^^^
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/_logging/_internal.py", line 887, in format
+    filepath = make_module_path_relative(record.pathname)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/_logging/_internal.py", line 811, in make_module_path_relative
+    abs_path = pathlib.Path(abs_path).resolve()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/user-environment/linux-neoverse_v2/python-3.12.12-5cm7jitxgnqn6suwm7rewia3gomktsja/lib/python3.12/pathlib.py", line 1250, in resolve
+    p.stat()
+  File "/user-environment/linux-neoverse_v2/python-3.12.12-5cm7jitxgnqn6suwm7rewia3gomktsja/lib/python3.12/pathlib.py", line 840, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/user-environment/linux-neoverse_v2/python-3.12.12-5cm7jitxgnqn6suwm7rewia3gomktsja/lib/python3.12/pathlib.py", line 447, in __fspath__
+    def __fspath__(self):
+    
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/api.py", line 84, in _terminate_process_handler
+    raise SignalException(f"Process {os.getpid()} got signal: {sigval}", sigval=sigval)
+torch.distributed.elastic.multiprocessing.api.SignalException: Process 246706 got signal: 15
+Call stack:
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/run.py", line 905, in <module>
+    main()
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/run.py", line 901, in main
+    run(args)
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/run.py", line 892, in run
+    elastic_launch(
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 143, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 268, in launch_agent
+    result = agent.run()
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/elastic/metrics/api.py", line 138, in wrapper
+    result = f(*args, **kwargs)
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/elastic/agent/server/api.py", line 724, in run
+    self._shutdown(e.sigval)
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/elastic/agent/server/local_elastic_agent.py", line 368, in _shutdown
+    self._pcontext.close(death_sig)
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/api.py", line 577, in close
+    self._close(death_sig=death_sig, timeout=timeout)
+  File "/user-environment/env/default/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/api.py", line 900, in _close
+    logger.warning(
+Message: 'Sending process %s closing signal %s'
+Arguments: (246747, 'SIGTERM')
+W0407 08:18:54.026000 79282 /user-environment/linux-neoverse_v2/py-torch-2.8.0-zkvjgu55ipgoc3nzbxg3i2xdcpyo3unk/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/api.py:900] Sending process 79302 closing signal SIGTERM
+W0407 08:18:54.026000 246706 /user-environment/linux-neoverse_v2/py-torch-2.8.0-zkvjgu55ipgoc3nzbxg3i2xdcpyo3unk/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/api.py:900] Sending process 246748 closing signal SIGTERM
+W0407 08:18:54.026000 79282 /user-environment/linux-neoverse_v2/py-torch-2.8.0-zkvjgu55ipgoc3nzbxg3i2xdcpyo3unk/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/api.py:900] Sending process 79303 closing signal SIGTERM
+W0407 08:18:54.027000 246706 /user-environment/linux-neoverse_v2/py-torch-2.8.0-zkvjgu55ipgoc3nzbxg3i2xdcpyo3unk/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/api.py:900] Sending process 246749 closing signal SIGTERM
+W0407 08:18:54.028000 246706 /user-environment/linux-neoverse_v2/py-torch-2.8.0-zkvjgu55ipgoc3nzbxg3i2xdcpyo3unk/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/api.py:900] Sending process 246750 closing signal SIGTERM
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.

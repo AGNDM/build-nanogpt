@@ -1,13 +1,13 @@
 #!/bin/bash
 #SBATCH --job-name=nanogpt-train-2n8g
 #SBATCH --account=a131
-#SBATCH --time=08:00:00
+#SBATCH --time=04:00:00
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=1
 #SBATCH --gpus-per-node=4
 #SBATCH --cpus-per-task=288
-#SBATCH --output=log_3_epoch/%x-%j.out
-#SBATCH --error=log_3_epoch/%x-%j.err
+#SBATCH --output=log_3_epoch_full/%x-%j.out
+#SBATCH --error=log_3_epoch_full/%x-%j.err
 
 cd /iopsstor/scratch/cscs/tong/share/xianrong_liu/build-nanogpt
 
