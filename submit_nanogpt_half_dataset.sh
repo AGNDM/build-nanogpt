@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=nanogpt-train
+#SBATCH --job-name=nanogpt-half-dataset
 #SBATCH --account=a131
 #SBATCH --time=03:00:00              
 #SBATCH --nodes=1                    
