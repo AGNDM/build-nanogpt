@@ -72,9 +72,9 @@ class Block(nn.Module):
 class GPTConfig:
     block_size: int = 1024 # max sequence length
     vocab_size: int = 50257 # number of tokens: 50,000 BPE merges + 256 bytes tokens + 1 <|endoftext|> token
-    n_layer: int = 24 # number of layers
-    n_head: int = 24 # number of heads
-    n_embd: int = 1024 # embedding dimension
+    n_layer: int = 6 # number of layers
+    n_head: int = 6 # number of heads
+    n_embd: int = 384 # embedding dimension
 
 class GPT(nn.Module):
 
@@ -322,7 +322,7 @@ if torch.cuda.is_available():
 enc = tiktoken.get_encoding("gpt2")
 
 total_batch_size = 524288 # 2**19, ~0.5M, in number of tokens
-B = 32 # micro batch size
+B = 128 # micro batch size
 T = 1024 # sequence length
 assert total_batch_size % (B * T * ddp_world_size) == 0, "make sure total_batch_size is divisible by B * T * ddp_world_size"
 grad_accum_steps = total_batch_size // (B * T * ddp_world_size)
