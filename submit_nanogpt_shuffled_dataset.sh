@@ -6,8 +6,8 @@
 #SBATCH --ntasks-per-node=1          
 #SBATCH --gpus-per-node=4            
 #SBATCH --cpus-per-task=288
-#SBATCH --output=log/%x-%j.out           
-#SBATCH --error=log/%x-%j.err            
+#SBATCH --output=log_shuffled/%x-%j.out           
+#SBATCH --error=log_shuffled/%x-%j.err            
 
 cd /iopsstor/scratch/cscs/tong/share/xianrong_liu/build-nanogpt
 
