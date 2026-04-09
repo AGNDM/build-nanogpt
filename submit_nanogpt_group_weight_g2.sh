@@ -1,0 +1,18 @@
+#!/bin/bash
+#SBATCH --job-name=nanogpt-group-kv-g2
+#SBATCH --account=a131
+#SBATCH --time=03:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --gpus-per-node=4
+#SBATCH --cpus-per-task=288
+#SBATCH --output=log_group_weight_g2/%x-%j.out
+#SBATCH --error=log_group_weight_g2/%x-%j.err
+
+cd /iopsstor/scratch/cscs/tong/share/xianrong_liu/build-nanogpt
+
+srun --uenv=pytorch/v2.8.0:v1 --view=default bash -c " \
+    source /iopsstor/scratch/cscs/tong/share/xianrong_liu/.venv/bin/activate && \
+    source /iopsstor/scratch/cscs/tong/share/xianrong_liu/build-nanogpt/cache_env_setup.sh && \
+    python -m torch.distributed.run --standalone --nproc_per_node=4 train_gpt2_group_weight.py --kv-share-group-size 2 \
+"
