@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=nanogpt-train-bigger
+#SBATCH --job-name=nanogpt-bigger
 #SBATCH --account=a131
 #SBATCH --time=05:00:00              
 #SBATCH --nodes=1                    
